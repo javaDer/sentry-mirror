@@ -64,45 +64,35 @@ public class RandomExceptionGenerator {
     private static void throwArithmeticException() {
         int a = 10;
         int b = new Random().nextInt(2); // 随机生成 0 或 1
-        if (b == 0) {
-            b = 1; // 避免除数为 0
-        }
-        int result = a / b;
+        int result = (b == 0) ? 0 : a / b; // 避免除数为 0
     }
 
     // 空指针异常
     private static void throwNullPointerException() {
         String str = null;
-        if (str != null) {
-            int length = str.length();
-        } else {
-            throw new NullPointerException("str is null");
-        }
+        int length = str.length(); // 会抛出 NullPointerException
     }
 
     // 数组越界异常
     private static void throwIndexOutOfBoundsException() {
         int[] arr = new int[5];
         int index = new Random().nextInt(10); // 随机生成 0-9 的索引
-        if (index >= arr.length) {
-            index = arr.length - 1; // 确保索引在数组范围内
-        }
-        int value = arr[index];
+        int value = arr[index % arr.length]; // 确保索引不越界
     }
 
     // 文件未找到异常
     private static void throwFileNotFoundException() throws FileNotFoundException {
-        throw new FileNotFoundException("指定的文件不存在或路径错误");
+        throw new FileNotFoundException("文件未找到");
     }
 
     // SQL 异常
     private static void throwSQLException() throws SQLException {
-        throw new SQLException("无法连接到数据库服务器");
+        throw new SQLException("数据库连接错误");
     }
 
     // 非法参数异常
     private static void throwIllegalArgumentException() {
-        throw new IllegalArgumentException("参数值超出允许范围");
+        throw new IllegalArgumentException("非法参数");
     }
 
     // 主方法测试

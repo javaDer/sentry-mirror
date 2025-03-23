@@ -54,6 +54,9 @@ public class BasicController {
     @RequestMapping("/save_user")
     @ResponseBody
     public String saveUser(User u) {
+        if (u == null || u.getName() == null || u.getName().isEmpty() || u.getAge() == null || u.getAge() < 0) {
+            return "Invalid user data";
+        }
         return "user will save: name=" + u.getName() + ", age=" + u.getAge();
     }
 
